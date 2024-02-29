@@ -1,7 +1,13 @@
-import { json } from '@remix-run/node';
+import { LoaderFunctionArgs, json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
-export const loader = async ({ request }) => {
+type SearchResult = {
+  package: {
+    name: string;
+  }
+}
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const q = url.searchParams.get('q');
 
@@ -14,13 +20,13 @@ export const loader = async ({ request }) => {
     return json({ data, q });
   }
 
-  return json({});
+  return json({ data: { results: [] }, q });
 }
 
 export default function Search() {
-  const { data } = useLoaderData();
+  const { data, q } = useLoaderData<typeof loader>();
 
-  if (!data) {
+  if (!q) {
     return (
       <p>Enter a search term.</p>
     )
@@ -28,7 +34,7 @@ export default function Search() {
 
   return (
     <ul>
-      {data.results.map(result => (
+      {data.results.map((result: SearchResult) => (
         <li key={result.package.name}>
           {result.package.name}
         </li>
