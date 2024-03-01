@@ -48,6 +48,9 @@ export default function Search() {
           <p>{result.package.description}</p>
         </li>
       ))}
+      {data.total === 0 && (
+        <p className="text-2xl">No packages found</p>
+      )}
     </ul>
   );
 }
