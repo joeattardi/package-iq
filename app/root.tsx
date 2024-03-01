@@ -17,6 +17,7 @@ import type { LinksFunction } from "@vercel/remix";
 import clsx from 'clsx';
 
 import styles from "./index.css";
+import { Package } from '@phosphor-icons/react';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -38,7 +39,10 @@ export default function App() {
       <body>
         <header className="bg-slate-800 text-white flex items-center p-4">
           <h1 className="text-3xl">
-            <Link to="/">Package IQ</Link>
+            <Link to="/" className="flex items-center gap-1">
+              <Package weight="duotone" />
+              Package IQ
+            </Link>
           </h1>
 
           <Form className="ml-4 flex-grow flex justify-center" action="/search" role="search">
