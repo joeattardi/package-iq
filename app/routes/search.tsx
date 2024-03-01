@@ -1,9 +1,10 @@
 import { LoaderFunctionArgs, json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { Link, useLoaderData } from '@remix-run/react';
 
 type SearchResult = {
   package: {
     name: string;
+    description: string;
   }
 }
 
@@ -32,11 +33,16 @@ export default function Search() {
     )
   }
 
+  console.log(data);
+
   return (
-    <ul>
+    <ul className="flex flex-col gap-4">
       {data.results.map((result: SearchResult) => (
-        <li key={result.package.name}>
-          {result.package.name}
+        <li className="pb-4 border-b border-b-stone-300" key={result.package.name}>
+          <Link className="font-bold text-xl" to={`/package/${result.package.name}`}>
+            {result.package.name}
+          </Link>
+          <p>{result.package.description}</p>
         </li>
       ))}
     </ul>

@@ -9,10 +9,12 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useNavigation,
   useSearchParams,
 } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
 import type { LinksFunction } from "@vercel/remix";
+import clsx from 'clsx';
 
 import styles from "./index.css";
 
@@ -23,6 +25,7 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   const [params] = useSearchParams();
+  const navigation = useNavigation();
 
   return (
     <html lang="en">
@@ -33,15 +36,18 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <header className="bg-slate-800 text-white flex items-center justify-between p-4">
+        <header className="bg-slate-800 text-white flex items-center p-4">
           <h1 className="text-3xl">
             <Link to="/">Package IQ</Link>
           </h1>
 
-          <Form className="ml-4" action="/search" role="search">
+          <Form className="ml-4 flex-grow flex justify-center" action="/search" role="search">
             <input 
-              type="search" 
-              className="bg-slate-500 w-full px-2 py-1 rounded text-white" 
+              type="search"
+              disabled={navigation.state === 'loading'}
+              className={clsx('bg-stone-600 w-3/5 px-2 py-1 rounded text-xl border border-stone-500 text-white', {
+                'opacity-50': navigation.state === 'loading'
+              })}
               id="q"
               name="q"
               placeholder="Search packages..."
@@ -53,7 +59,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </html>
   );
