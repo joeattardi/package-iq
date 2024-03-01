@@ -18,6 +18,7 @@ import clsx from 'clsx';
 
 import styles from "./index.css";
 import { Package } from '@phosphor-icons/react';
+import Header from './components/Header';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -37,29 +38,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <header className="bg-slate-800 text-white flex items-center p-4">
-          <h1 className="text-3xl">
-            <Link to="/" className="flex items-center gap-1">
-              <Package weight="duotone" />
-              Package IQ
-            </Link>
-          </h1>
-
-          <Form className="ml-4 flex-grow flex justify-center" action="/search" role="search">
-            <input 
-              type="search"
-              disabled={navigation.state === 'loading'}
-              className={clsx('bg-stone-600 w-3/5 px-2 py-1 rounded text-xl border border-stone-500 text-white', {
-                'opacity-50': navigation.state === 'loading'
-              })}
-              id="q"
-              name="q"
-              placeholder="Search packages..."
-              defaultValue={params.get('q') || ''}
-            />
-          </Form>
-        </header>
-        <main className="p-4"><Outlet /></main>
+        <Header />
+        <main className="p-4">
+          <Outlet />
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
