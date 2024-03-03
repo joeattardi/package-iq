@@ -18,9 +18,11 @@
     "@vercel/analytics": "^1.0.2",
     "@vercel/remix": "^2.0.0",
     "clsx": "^2.1.0",
+    "filesize": "^10.1.0",
     "isbot": "^3.6.8",
     "performance-now": "^2.1.0",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.1"
   },

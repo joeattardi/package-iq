@@ -19,8 +19,8 @@ export default function DownloadCharts({ downloads }) {
   };
 
   return (
-    <div className="bg-white p-2 border border-slate-300 rounded-md">
-      <h3 className="text-xl font-bold">Downloads (past 30 days)</h3>
+    <div className="bg-white p-4 rounded shadow">
+      <h3 className="font-bold">Downloads (past 30 days)</h3>
       <Chart
         chartType="LineChart"
         width="100%"
