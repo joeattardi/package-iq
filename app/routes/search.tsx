@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from '@remix-run/node';
+import { LoaderFunctionArgs, json, MetaFunction } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { Package } from '@phosphor-icons/react';
@@ -9,6 +9,10 @@ type SearchResult = {
     description: string;
   }
 }
+
+export const meta: MetaFunction = () => [
+  { title: 'Search | Package IQ' }
+];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -35,13 +39,14 @@ export default function Search() {
     )
   }
 
-  console.log(data);
-
   return (
     <ul className="flex flex-col gap-4">
       {data.results.map((result: SearchResult) => (
         <li className="pb-4 border-b border-b-stone-300" key={result.package.name}>
-          <Link className="font-bold text-xl flex items-center gap-1 hover:underline" to={`/package/${result.package.name}`}>
+          <Link 
+            className="font-bold text-xl flex items-center gap-1 hover:underline" 
+            to={`/package/${encodeURIComponent(result.package.name)}`}
+          >
             <Package weight="duotone" />
             {result.package.name}
           </Link>
